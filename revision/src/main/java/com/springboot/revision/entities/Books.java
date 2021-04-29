@@ -1,8 +1,5 @@
 package com.springboot.revision.entities;
 
-
-
-
 import javax.persistence.*;
 
 @Entity
@@ -11,29 +8,23 @@ public class Books {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="book_id")
     int id;
 
-    @Column(name="book_name")
-    String name;
+    @OneToOne(cascade = CascadeType.ALL)
+    BookName name;
 
-    @Column(name="title")
     String title;
 
     public Books() {
-    }
-
-    public Books(String name, String title) {
-        this.name = name;
-        this.title = title;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getName() {
+    public BookName getName() {
         return name;
     }
 
@@ -45,7 +36,7 @@ public class Books {
         this.id = id;
     }
 
-    public void setName(String name) {
+    public void setName(BookName name) {
         this.name = name;
     }
 
@@ -53,11 +44,17 @@ public class Books {
         this.title = title;
     }
 
+    public Books( BookName name, String title) {
+
+        this.name = name;
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "Books{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name=" + name +
                 ", title='" + title + '\'' +
                 '}';
     }
